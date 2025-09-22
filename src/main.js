@@ -10,7 +10,7 @@ import {initTable} from "./components/table.js";
 // @todo: подключение
 
 import {initPagination} from "./components/pagination.js";
-
+import {initSorting} from './components/sorting.js';
 
 // Исходные данные используемые в render()
 const {data, ...indexes} = initData(sourceData);
@@ -42,6 +42,7 @@ function render(action) {
     // @todo: использование
 
     result = applyPagination(result, state, action);
+    result = applySorting(result, state, action);
 
     sampleTable.render(result)
 }
@@ -66,6 +67,11 @@ const applyPagination = initPagination(
         return el;
     }
 );
+
+const applySorting = initSorting([
+    sampleTable.header.elements.sortByDate,
+    sampleTable.header.elements.sortByTotal
+]);
 
 const appRoot = document.querySelector('#app');
 appRoot.appendChild(sampleTable.container);
